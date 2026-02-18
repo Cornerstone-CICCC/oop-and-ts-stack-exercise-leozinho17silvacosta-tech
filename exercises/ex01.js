@@ -5,11 +5,31 @@
 const Stack = require('../lib/Stack')
 
 function removeEvenNums(stack) {
-  // your code here
+  const tempStack = new Stack();
+
+// MAIN STACK:
+
+  while (!stack.isEmpty()) {
+    const removed = stack.pop()
+
+    if(removed % 2 !== 0) {
+      tempStack.push(removed)
+    }
+  }
+
+// TEMP STACK:
+
+  while (!tempStack.isEmpty()) {
+    const removed = tempStack.pop()
+    if(removed !== undefined) {
+      stack.push(removed)
+    }
+  }
 }
 
 // Create stack
 const stack = new Stack();
+
 stack.push(5);
 stack.push(8);
 stack.push(1);

@@ -5,7 +5,47 @@
 const Stack = require('../lib/Stack')
 
 function removeDuplicates(stack) {
-  // your code here
+  const tempStack = new Stack()
+  const duplicate = new Stack()
+  const reverseStack = new Stack()
+
+// MAIN STACK:
+
+  while (!stack.isEmpty()) {
+    const current = stack.pop()
+    let isDuplicate = false
+
+// TEMP STACK:
+
+  while (!tempStack.isEmpty()) {
+    const removed = tempStack.pop()
+
+    if (removed === current) {
+      isDuplicate = true
+    }
+    duplicate.push(removed)
+  }
+
+  while (!duplicate.isEmpty()) {
+    tempStack.push(duplicate.pop())
+  }
+  
+  if (!isDuplicate) {
+    tempStack.push(current)
+  }
+}
+
+// REVERSE STACK:
+  
+  while (!tempStack.isEmpty()) {
+    reverseStack.push(tempStack.pop())
+  }
+
+// RETURN TO MAIN STACK:
+
+  while (!reverseStack.isEmpty()) {
+    stack.push(reverseStack.pop())
+  }
 }
 
 // Create stack
@@ -18,4 +58,4 @@ stack.push(1);
 stack.push(3);
 
 removeDuplicates(stack)
-console.log(stack.printStack()) // [2, 5, 1, 3]
+console.log(stack.printStack()) // [3, 1, 5, 2]
